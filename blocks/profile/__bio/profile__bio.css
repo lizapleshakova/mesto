@@ -1,0 +1,11 @@
+.profile__bio {
+  display: flex;
+  flex-direction: column;
+  row-gap: 18px;
+}
+
+@media screen and (max-width: 900px) {
+  .profile__bio {
+    align-items: center;
+}
+}

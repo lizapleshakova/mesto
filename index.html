@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mesto</title>
+  <meta name="author" content="Liza Pleshakova">
+  <link rel="stylesheet" href="pages/index.css">
+</head>
+<body class="page">
+  <header class="header">
+       <img src="./images/header__logo.svg" alt="Логотип Место." class="header__logo">
+    </div>
+    </header>
+  <main class="content">
+    <section class="profile">
+
+    <div class="profile__info">
+      <div class="profile__avatar">
+        <img src="./images/profile__selfie.jpg" alt="" class="profile__image">
+      </div>
+      <div class="profile__bio">
+        <div class="profile__name-edit">
+          <h1 class="profile__name">Прокудин-Горский</h1>
+          <button class="profile__edit-btn button"></button>
+        </div>
+        <p class="profile__description">Фотограф</p>
+      </div>
+    </div>
+    <button class="profile__add-btn button"></button>
+    </section>
+    <section class="elements">
+      <div class="card">
+        <img src="./images/card_img_Batumi.jpg" alt="Вид на Батуми." class="card__image">
+        <h2 class="card__title">Вид на Батуми.</h2>
+        <button class="card__like button"></button>
+      </div>
+      <div class="card">
+        <img src="./images/card_img_Karelia.jpg" alt="Рыбачий поселок." class="card__image">
+        <h2 class="card__title">Рыбачий поселок, Карелия.</h2>
+        <button class="card__like button"></button>
+      </div>
+      <div class="card">
+        <img src="./images/card_img_Petrozavodsk.jpg" alt="Дрезина." class="card__image">
+        <h2 class="card__title">На дрезине недалеко от Петрозаводска.</h2>
+        <button class="card__like button"></button>
+      </div>
+      <div class="card">
+        <img src="./images/card_img_Seliger.jpg" alt="Монастырь на Селигере." class="card__image">
+        <h2 class="card__title">Нило-Столобенская пустынь.</h2>
+        <button class="card__like button"></button>
+      </div>
+      <div class="card">
+        <img src="./images/card_img_Syringa.jpg" alt="Сирень." class="card__image">
+        <h2 class="card__title">Сирень.</h2>
+        <button class="card__like button"></button>
+      </div>
+      <div class="card">
+        <img src="./images/card_img_WinterCanal.jpg" alt="Зимняя канавка." class="card__image">
+        <h2 class="card__title">С.-Петербург. Зимняя канавка.</h2>
+        <button class="card__like button"></button>
+      </div>
+    </section>
+  </main>
+  <footer class="footer">
+    <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
+  </footer>
+  <section class="popup">
+    <form class="popup__profile-edit">
+      <button type="reset" class="button popup__close-btn"></button>
+      <h2 class="popup__title">Редактировать профиль</h2>
+      <fildset class="popup__input-container">
+        <input type="text" class="popup__username">
+        <input type="text" class="popup__description">
+      </fildset>
+      <button type="submit" class="button popup__submit-btn">Сохранить</button>
+    </form>
+  </section>
+  <script src="./scripts/index.js"></script>
+  </body>
+</html>
