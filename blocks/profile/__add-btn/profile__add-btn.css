@@ -6,6 +6,13 @@
   background-position: center;
   background-color: black;
   background-size: 22px 22px;
-  border: 1px solid white;
+  border: 2px solid white;
   align-self: center;
+}
+
+@media screen and (max-width: 900px) {
+  .profile__add-btn {
+      width: 282px;
+      background-size: 16px 16px;
+}
 }

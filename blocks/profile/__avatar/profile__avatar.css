@@ -2,3 +2,11 @@
   margin: 0;
   padding: 3.75px 26.25px 3.75px 0;
 }
+
+
+@media screen and (max-width: 900px) {
+  .profile__avatar {
+    padding: 0;
+  }
+}
+

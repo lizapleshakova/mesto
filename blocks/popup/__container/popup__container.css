@@ -1,10 +1,18 @@
-.popup__profile-edit {
+.popup__container {
   width: 430px;
   height: 330px;
   background-color: white;
   color: black;
+  position: fixed;
   display: flex;
   flex-direction: column;
   border-radius: 10px;
+  box-shadow: 0px 0px 25px;
+}
 
+@media screen and (max-width: 620px) {
+  .popup__container {
+    width: 282px;
+    height: 322px;
+  }
 }
