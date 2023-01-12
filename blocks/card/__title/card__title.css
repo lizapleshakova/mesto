@@ -1,6 +1,6 @@
 .card__title {
-  max-width: 240px;
-  padding: 25px 45px 26px 21px;
+  max-width: calc(100% - 25px);
+  padding: 0;
   margin: 0;
   font-weight: 900;
   font-size: 24px;
