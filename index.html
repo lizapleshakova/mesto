@@ -16,79 +16,76 @@
     <section class="profile">
 
     <div class="profile__info">
-      <div class="profile__avatar">
-        <img src="./images/profile__selfie.jpg" alt="" class="profile__image">
-      </div>
+      <img src="./images/profile__selfie.jpg" alt="Прокудин-Горский. Фотограф" class="profile__image">
       <div class="profile__bio">
         <div class="profile__name-edit">
           <h1 class="profile__name">Прокудин-Горский</h1>
-          <button type="button" class="profile__edit-btn button"></button>
+          <button type="button" aria-label="Редактировать профиль" class="profile__edit-btn button"></button>
         </div>
         <p class="profile__description">Фотограф</p>
       </div>
     </div>
-    <button type="button" class="profile__add-btn button"></button>
+    <button type="button" aria-label="Добавить изображение" class="profile__add-btn button"></button>
     </section>
     <section class="elements">
-      <div class="card">
+      <article class="card">
         <img src="./images/card_img_Batumi.jpg" alt="Вид на Батуми." class="card__image">
         <div class="card__container">
           <h2 class="card__title">Вид на Батуми.</h2>
-          <button type="button" class="card__like button"></button>
+          <button type="button" aria-label="Нравится" class="card__like button"></button>
         </div>
-      </div>
-      <div class="card">
+      </article>
+      <article class="card">
         <img src="./images/card_img_Karelia.jpg" alt="Рыбачий поселок." class="card__image">
         <div class="card__container">
           <h2 class="card__title">Рыбачий поселок, Карелия.</h2>
-          <button type="button" class="card__like button"></button>
+          <button type="button" aria-label="Нравится" class="card__like button"></button>
         </div>
-      </div>
-      <div class="card">
+      </article>
+      <article class="card">
         <img src="./images/card_img_Petrozavodsk.jpg" alt="Дрезина." class="card__image">
         <div class="card__container">
           <h2 class="card__title">На дрезине недалеко от Петрозаводска.</h2>
-          <button type="button" class="card__like button"></button>
+          <button type="button" aria-label="Нравится" class="card__like button"></button>
         </div>
-      </div>
-      <div class="card">
+      </article>
+      <article class="card">
         <img src="./images/card_img_Seliger.jpg" alt="Монастырь на Селигере." class="card__image">
         <div class="card__container">
           <h2 class="card__title">Нило-Столобенская пустынь.</h2>
-          <button type="button" class="card__like button"></button>
+          <button type="button" aria-label="Нравится" class="card__like button"></button>
         </div>
-      </div>
-      <div class="card">
+      </article>
+      <article class="card">
         <img src="./images/card_img_Syringa.jpg" alt="Сирень." class="card__image">
         <div class="card__container">
           <h2 class="card__title">Сирень.</h2>
-          <button type="button" class="card__like button"></button>
+          <button type="button" aria-label="Нравится" class="card__like button"></button>
         </div>
-      </div>
-      <div class="card">
+      </article>
+      <article class="card">
         <img src="./images/card_img_WinterCanal.jpg" alt="Зимняя канавка." class="card__image">
         <div class="card__container">
           <h2 class="card__title">С.-Петербург. Зимняя канавка.</h2>
-          <button type="button" class="card__like button"></button>
+          <button type="button" aria-label="Нравится" class="card__like button"></button>
         </div>
-      </div>
+      </article>
     </section>
   </main>
   <footer class="footer">
     <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
   </footer>
-  <section class="popup">
+  <div class="popup">
     <div class="popup__container">
-      <button type="reset" class="button popup__close-btn"></button>
+      <button type="button" aria-label="Закрыть модальное окно" class="button popup__close-btn"></button>
       <h2 class="popup__title">Редактировать профиль</h2>
-      <form class="popup__input-container">
-        <input type="text" class="popup__input popup__input_form_usermane">
-        <input type="text" class="popup__input popup__input_form_description">
-        <button type="submit" class="button popup__submit-btn">Сохранить</button>
+      <form name="profile_edit" method="post" class="popup__input-container">
+        <input type="text" name="username" class="popup__input popup__input_form_usermane">
+        <input type="text" name="description" class="popup__input popup__input_form_description">
+        <button type="submit" aria-label="Сохранить изменения и закрыть" class="button popup__submit-btn">Сохранить</button>
       </form>
-
     </div>
-  </section>
+  </div>
   <script src="./scripts/index.js"></script>
   </body>
 </html>
