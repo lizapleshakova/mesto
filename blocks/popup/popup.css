@@ -10,7 +10,6 @@
   visibility: hidden;
   opacity: 0;
   display: flex;
-  justify-content: center;
   transition: visibility  1s,opacity 1s ease-in-out;
 }
 
