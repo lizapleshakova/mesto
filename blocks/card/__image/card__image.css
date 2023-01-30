@@ -4,3 +4,8 @@
   object-fit: cover;
   display: block;
 }
+
+
+.card__image:hover {
+  cursor: pointer;
+}
