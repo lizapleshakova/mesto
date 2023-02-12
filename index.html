@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="pages/index.css">
   <script src="./scripts/cards.js" defer></script>
   <script src="./scripts/index.js" defer></script>
+  <script src="./scripts/validation.js" defer></script>
 </head>
 <body class="page">
   <header class="header">
@@ -35,24 +36,30 @@
   <footer class="footer">
     <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
   </footer>
+
   <div class="popup popup_edit-profile">
     <div class="popup__container">
       <button type="button" aria-label="Закрыть модальное окно" class="button popup__close-btn"></button>
       <h2 class="popup__title">Редактировать профиль</h2>
-      <form name="profile_edit" method="post" class="popup__input-container">
-        <input type="text" name="username" class="popup__input popup__input_form_usermane">
-        <input type="text" name="description" class="popup__input popup__input_form_description">
+      <form name="profile_edit" method="post" class="popup__input-container" novalidate>
+        <input type="text" name="username" id="name-input" class="popup__input popup__input_form_usermane" minlength="2" maxlength="40" required>
+        <span class="popup__input-error name-input-error"></span>
+        <input type="text" name="description" id="description-input" class="popup__input popup__input_form_description" minlength="2" maxlength="200" required>
+        <span class="popup__input-error description-input-error"></span>
         <button type="submit" aria-label="Сохранить изменения и закрыть" class="button popup__submit-btn">Сохранить</button>
       </form>
     </div>
   </div>
+
   <div class="popup popup_add-content">
     <div class="popup__container">
       <button type="button" aria-label="Закрыть модальное окно" class="button popup__close-btn"></button>
       <h2 class="popup__title">Новое место</h2>
-      <form name="image_add" method="post" class="popup__input-container">
-        <input type="text" placeholder="Название" name="img_name" class="popup__input popup__input_form_image-title">
-        <input type="url" placeholder="Ссылка на картинку" name="img_url" class="popup__input popup__input_form_url">
+      <form name="image_add" method="post" class="popup__input-container" novalidate>
+        <input type="text" placeholder="Название" name="img_name" id="img-name-input" class="popup__input popup__input_form_image-title" minlength="2" maxlength="30" required>
+        <span class="popup__input-error img-name-input-error"></span>
+        <input type="url" placeholder="Ссылка на картинку" name="img_url" id="img-url-input" class="popup__input popup__input_form_url" required>
+        <span class="popup__input-error img-url-input-error"></span>
         <button type="submit" aria-label="Сохранить изменения и закрыть" class="button popup__submit-btn">Создать</button>
       </form>
     </div>
