@@ -19,17 +19,10 @@
 @media screen and (max-width: 620px) {
   .popup__submit-btn {
     width: 238px;
-    margin: 0 auto;
+    margin: 30px auto 0;
     font-size: 14px;
     line-height: 17px;
     margin-top: 7px;
   }
 }
 
-.popup__submit-btn_inactive {
-  background-color: white;
-  color: black;
-  opacity: 0.2;
-  border: 1px solid black;
-  pointer-events: none;
-}

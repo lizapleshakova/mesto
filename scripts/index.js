@@ -1,4 +1,6 @@
 // popups
+const popups = document.querySelectorAll('.popup')
+const popupElement = document.querySelector('.popup');
 const popupProfile = document.querySelector('.popup_edit-profile');
 const popupAddImage = document.querySelector('.popup_add-content');
 const popupZoomImage = document.querySelector('.popup_zoom-content');
@@ -36,43 +38,70 @@ const jobInput = formInputProfile.querySelector('.popup__input_form_description'
 const profileName = document.querySelector('.profile__name');
 const profileJob = document.querySelector('.profile__description');
 
+nameInput.value = profileName.textContent;
+jobInput.value = profileJob.textContent;
+
 // zoom
 const zoomImage = popupZoomImage.querySelector('.popup__zoom-image');
 const zoomCaption = popupZoomImage.querySelector('.popup__image-caption');
 
 
+// popupAddImageSubmit.classList.add('popup_opened')
+
 // Открытие попапов
 const openPopup = function (popup) {
   popup.classList.add('popup_opened')
+  document.addEventListener('keydown', closeByEsc);
+
 }
+
+
 
 popupProfileOpen.addEventListener('click', () => {
   openPopup(popupProfile)
-  nameInput.value = profileName.textContent;
-  jobInput.value = profileJob.textContent;
+
 })
 
 popupAddImageOpen.addEventListener('click', () => {
   openPopup(popupAddImage)
   })
 
-// Закрытие попапов
+
+
+// Общая функция закрытия попапов
 const closePopup = function (popup) {
-  popup.classList.remove('popup_opened')
-}
 
-popupProfileClose.addEventListener('click', function () {
-    closePopup(popupProfile)
+  popup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', closeByEsc);
+  }
+
+// document.removeEventListener('keydown', closeByEsc)
+
+
+ // Закрытие по крестику и по Overlay
+
+popups.forEach((popup) => {
+  popup.addEventListener('mousedown', (evt) => {
+    if (evt.target.classList.contains('popup_opened')) {
+      closePopup(popup)
+    }
+    if (evt.target.classList.contains('popup__close-btn')) {
+      closePopup(popup)
+    }
   })
+})
 
-popupAddImageClose.addEventListener('click', function () {
-    closePopup(popupAddImage)
-    })
+// Закрытие по ESC
+function closeByEsc(evt) {
 
-  popupZoomImageClose.addEventListener('click', function () {
-      closePopup(popupZoomImage)
-      })
+  if (evt.key === 'Escape')
 
+  {
+    const openedPopup = document.querySelector('.popup_opened')
+
+    closePopup(openedPopup)
+  }
+}
 
 
 // Создание новой карточки
@@ -105,7 +134,6 @@ function createCard(item) {
     zoomCaption.textContent = item.name;
     zoomImage.alt = item.name;
     zoomImage.src = evt.target.src;
-
   })
 
   return newCard;
@@ -137,6 +165,8 @@ popupAddImageSubmit.addEventListener('click', (evt) => {
   closePopup(popupAddImage);
 
   formInputCard.reset(); // удаление из формы предыдущих значений
+  popupAddImageSubmit.classList.add('popup__submit-btn_inactive')
+
 })
 
 
@@ -152,4 +182,10 @@ popupAddImageSubmit.addEventListener('click', (evt) => {
   // Прикрепляем обработчик к форме:
   // он будет следить за событием “submit” - «отправка»
   formInputProfile.addEventListener('submit', handleFormSubmit);
+
+
+
+
+
+
 
