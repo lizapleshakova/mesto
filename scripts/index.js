@@ -38,8 +38,7 @@ const jobInput = formInputProfile.querySelector('.popup__input_form_description'
 const profileName = document.querySelector('.profile__name');
 const profileJob = document.querySelector('.profile__description');
 
-nameInput.value = profileName.textContent;
-jobInput.value = profileJob.textContent;
+
 
 // zoom
 const zoomImage = popupZoomImage.querySelector('.popup__zoom-image');
@@ -59,6 +58,8 @@ const openPopup = function (popup) {
 
 popupProfileOpen.addEventListener('click', () => {
   openPopup(popupProfile)
+  nameInput.value = profileName.textContent;
+  jobInput.value = profileJob.textContent;
 
 })
 
@@ -75,7 +76,7 @@ const closePopup = function (popup) {
   document.removeEventListener('keydown', closeByEsc);
   }
 
-// document.removeEventListener('keydown', closeByEsc)
+
 
 
  // Закрытие по крестику и по Overlay
@@ -166,6 +167,7 @@ popupAddImageSubmit.addEventListener('click', (evt) => {
 
   formInputCard.reset(); // удаление из формы предыдущих значений
   popupAddImageSubmit.classList.add('popup__submit-btn_inactive')
+  popupAddImageSubmit.setAttribute("disabled", "");
 
 })
 
