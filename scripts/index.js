@@ -144,11 +144,3 @@ function handleFormSubmit(evt) {
   profileJob.textContent = jobInput.value;
   closePopup(popupProfile)
 }
-
-// Прикрепляем обработчик к форме:
-// он будет следить за событием “submit” - «отправка»
-formInputProfile.addEventListener('submit', handleFormSubmit);
-
-
-
-
