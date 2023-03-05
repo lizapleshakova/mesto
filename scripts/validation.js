@@ -1,84 +1,80 @@
 
-const obj = {
-  formSelector: '.popup__container',
-  fieldsetSelector: '.popup__input-container',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__submit-btn',
-  inactiveButtonClass: 'popup__submit-btn_inactive',
-  inputErrorClass: 'popup__input_form_error',
-  errorClass: 'popup__input-error_active'
-};
+export class FormValidator {
+  constructor(configObj, formElement) {
+    this._formSelector = configObj.formSelector;
+    this._fieldsetSelector = configObj.fieldsetSelector;
+    this._inputSelector = configObj.inputSelector;
+    this._submitButtonSelector = configObj.submitButtonSelector;
+    this._inactiveButtonClass = configObj.inactiveButtonClass;
+    this._inputErrorClass = configObj.inputErrorClass;
+    this._errorClass = configObj.errorClass;
 
-const showInputError = (obj, formElement, inputElement, errorMessage) => {
-  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-  inputElement.classList.add(obj.inputErrorClass);
-  errorElement.textContent = errorMessage;
-  errorElement.classList.add(obj.errorClass);
-};
+    this._formElement = formElement;
+  };
 
-const hideInputError = (obj, formElement, inputElement) => {
-  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-  inputElement.classList.remove(obj.inputErrorClass);
-  errorElement.classList.remove(obj.errorClass);
-  errorElement.textContent = '';
-};
+  // показать сообщение об ошибке
+  _showInputError(inputElement, errorMessage) {
+    const errorElement = this._formElement.querySelector(`.${inputElement.id}-error`);
+    inputElement.classList.add(this._inputErrorClass);
+    errorElement.textContent = errorMessage;
+    errorElement.classList.add(this._errorClass);
+    };
 
-// Проверка валидности поля
-const checkInputValidity = (obj, formElement, inputElement) => {
-  if (!inputElement.validity.valid) {
+  // скрыть сообщение об ошибке
+  _hideInputError(inputElement) {
+    const errorElement = this._formElement.querySelector(`.${inputElement.id}-error`);
+    inputElement.classList.remove(this._inputErrorClass);
+    errorElement.textContent = '';
+  };
 
-    showInputError(obj, formElement, inputElement, inputElement.validationMessage);
-  } else {
+  // проверка валидности поля
+  _checkInputValidity(inputElement) {
+    if (!inputElement.validity.valid) {
 
-    hideInputError(obj, formElement, inputElement);
-  }
-};
+      this._showInputError(inputElement, inputElement.validationMessage);
+    } else {
 
-const hasInvalidInput = (inputList) => {
-  return inputList.some((inputElement) => {
-    return !inputElement.validity.valid;
-  })
-}
+      this._hideInputError(inputElement);
+    }
+  };
 
-const toggleButtonState = (obj, inputList, buttonElement) => {
-
-  if (hasInvalidInput(inputList)) {
-
-    buttonElement.classList.add(obj.inactiveButtonClass);
-    buttonElement.setAttribute("disabled", "");
-  } else {
-
-    buttonElement.classList.remove(obj.inactiveButtonClass);
-    buttonElement.removeAttribute("disabled");
-  }
-};
-
-const setEventListeners = (obj, formElement) => {
-
-  const inputList = Array.from(formElement.querySelectorAll(obj.inputSelector));
-  const buttonElement = formElement.querySelector(obj.submitButtonSelector);
-
-  toggleButtonState(obj, inputList, buttonElement);
-
-  inputList.forEach((inputElement) => {
-
-    inputElement.addEventListener('input', () => {
-
-      toggleButtonState(obj, inputList, buttonElement);
-      checkInputValidity(obj, formElement, inputElement)
-
-    });
-  });
-};
-
-const enableValidation = (obj) => {
-  const formList = Array.from(document.querySelectorAll(obj.formSelector));
-  formList.forEach((formElement) => {
-    const fieldsetList = Array.from(formElement.querySelectorAll(obj.fieldsetSelector))
-    fieldsetList.forEach((fieldset) => {
-      setEventListeners(obj, fieldset);
+  _hasInvalidInput = () => {
+    return this._inputList.some((inputElement) => {
+      return !inputElement.validity.valid;
     })
-  })
-}
+  }
+  // активная / неактивная кнопка submit
+  _toggleButtonState = () => {
 
-enableValidation(obj);
+    if (this._hasInvalidInput()) {
+      this._buttonElement.classList.add(this._inactiveButtonClass);
+      this._buttonElement.setAttribute("disabled", "");
+    } else {
+      this._buttonElement.classList.remove(this._inactiveButtonClass);
+      this._buttonElement.removeAttribute("disabled");
+
+    }
+  };
+
+  // слушатели
+  _setEventListeners = () => {
+
+    this._inputList = Array.from(this._formElement.querySelectorAll(this._inputSelector));
+    this._buttonElement = this._formElement.querySelector(this._submitButtonSelector);
+
+    this._toggleButtonState();
+
+    this._inputList.forEach((inputElement) => {
+
+      inputElement.addEventListener('input', () => {
+
+        this._toggleButtonState();
+        this._checkInputValidity(inputElement)
+      });
+    });
+  }
+
+  enableValidation() {
+    this._setEventListeners();
+  }
+}
