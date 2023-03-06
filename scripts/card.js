@@ -1,4 +1,5 @@
-import { zoomImage, zoomCaption, popupZoomImage, openPopup } from './index.js'
+import { zoomImage, zoomCaption, popupZoomImage } from './constans.js'
+import { openPopup } from './index.js';
 
 export default class Card {
   constructor(data, templateSelector) {
@@ -46,7 +47,8 @@ export default class Card {
 
   // корзина
   _deleteCard() {
-    this._elementDelete.closest('.card').remove();
+    this._element.remove();
+    this._element = null;
   }
 
   // слушатели
@@ -56,11 +58,11 @@ export default class Card {
       this._handleOpenPopup();
   });
 
-    this._element.querySelector('.card__like').addEventListener('click', () => {
+  this._elementLike.addEventListener('click', () => {
       this._toggleLikeCard();
     })
 
-    this._element.querySelector('.card__delete').addEventListener('click', () => {
+    this._elementDelete.addEventListener('click', () => {
       this._deleteCard();
     })
   }

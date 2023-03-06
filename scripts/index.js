@@ -1,56 +1,13 @@
-import Card from './card.js'
-import {initialCards} from './cardArr.js'
+import {
+  popups, popupProfile, popupAddImage, elementList, formInputCard, nameInputCard, urlInputCard,
+  popupProfileOpen, popupAddImageOpen, formInputProfile, nameInput, jobInput, profileName, profileJob
+} from './constans.js';
+
+import Card from './card.js';
+import { initialCards } from './cardArr.js';
+import { configObj } from './validationObj.js';
 import { FormValidator } from './validation.js';
 
-// Валидация
-const configObj = {
-  formSelector: '.popup__container',
-  fieldsetSelector: '.popup__input-container',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__submit-btn',
-  inactiveButtonClass: 'popup__submit-btn_inactive',
-  inputErrorClass: 'popup__input_form_error',
-  errorClass: 'popup__input-error_active'
-};
-
-// popups
-const popups = document.querySelectorAll('.popup')
-const popupElement = document.querySelector('.popup');
-const popupProfile = document.querySelector('.popup_edit-profile');
-const popupAddImage = document.querySelector('.popup_add-content');
-export const popupZoomImage = document.querySelector('.popup_zoom-content');
-
-
-// контейнер для карточек
-const elementList = document.querySelector('.elements')
-
-// inputs for add Image
-const formInputCard = popupAddImage.querySelector('.popup__input-container'); // форма с инпутами
-const nameInputCard = formInputCard.querySelector('.popup__input_form_image-title');  // инпут для названия
-const urlInputCard = formInputCard.querySelector('.popup__input_form_url');  // инпут для ссылки
-
-// popups close buttons
-const popupProfileClose = popupProfile.querySelector('.popup__close-btn');
-const popupAddImageClose = popupAddImage.querySelector('.popup__close-btn');
-
-// popups submit buttons
-const popupProfileSubmit = popupProfile.querySelector('.popup__submit-btn');
-const popupAddImageSubmit = popupAddImage.querySelector('.popup__submit-btn');
-
-// popups open buttons
-const popupProfileOpen = document.querySelector('.profile__edit-btn');
-const popupAddImageOpen = document.querySelector('.profile__add-btn');
-
-// inputs for edit profile
-const formInputProfile = popupProfile.querySelector('.popup__input-container');
-const nameInput = formInputProfile.querySelector('.popup__input_form_usermane');
-const jobInput = formInputProfile.querySelector('.popup__input_form_description');
-const profileName = document.querySelector('.profile__name');
-const profileJob = document.querySelector('.profile__description');
-
-// zoom
-export const zoomImage = popupZoomImage.querySelector('.popup__zoom-image');
-export const zoomCaption = popupZoomImage.querySelector('.popup__image-caption');
 
 // формы валидации
 const validationProfile = new FormValidator(configObj, formInputProfile)
@@ -59,7 +16,6 @@ const validationAddImage = new FormValidator(configObj, formInputCard)
 // валидация
 validationProfile.enableValidation();
 validationAddImage.enableValidation();
-
 
 // Открытие попапов. Общая функция
 export const openPopup = function (popup) {
@@ -105,18 +61,19 @@ function closeByEsc(evt) {
   }
 }
 
-// добавляем массив из карточек
-initialCards.forEach((item) => {
+// создание новой карточки
+function renderCard(item) {
   const card = new Card(item, '#card-template');
   const cardElement = card.generateCard();
 
-  // Добавляем в DOM
-  document.querySelector('.elements').append(cardElement);
-});
+  elementList.prepend(cardElement);
+}
 
-// Добавление новой карточка
+// добавляем массив из карточек
+initialCards.forEach(item => renderCard(item));
 
-const addNewCard = (evt) => {
+// сохранение данных новой карточки
+function handlePopupAddImage(evt) {
   evt.preventDefault();
 
   const dataObj = {
@@ -124,23 +81,21 @@ const addNewCard = (evt) => {
     link: urlInputCard.value,
   };
 
-  const card = new Card(dataObj, "#card-template").generateCard();
-
-  elementList.prepend(card);
+  renderCard(dataObj);
   closePopup(popupAddImage);
-
   formInputCard.reset(); // удаление из формы предыдущих значений
-  popupAddImageSubmit.classList.add('popup__submit-btn_inactive')
-  popupAddImageSubmit.setAttribute("disabled", "");
-};
+  validationAddImage.inactiveButton();
+}
 
-// слушатель на форму! добавления новой карточки
-formInputCard.addEventListener('submit', addNewCard);
+// слушатель  на форму добавления новой карточки
+formInputCard.addEventListener('submit', handlePopupAddImage);
 
-
-function handleFormSubmit(evt) {
+// сохранение данных формы редактирования профиля
+function handlePopupProfile(evt) {
   evt.preventDefault();
   profileName.textContent = nameInput.value;
   profileJob.textContent = jobInput.value;
   closePopup(popupProfile)
 }
+// слушатель  на форму редактирования профиля
+formInputProfile.addEventListener('submit', handlePopupProfile);

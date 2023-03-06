@@ -18,7 +18,7 @@ export class FormValidator {
     inputElement.classList.add(this._inputErrorClass);
     errorElement.textContent = errorMessage;
     errorElement.classList.add(this._errorClass);
-    };
+  };
 
   // скрыть сообщение об ошибке
   _hideInputError(inputElement) {
@@ -44,11 +44,16 @@ export class FormValidator {
     })
   }
   // активная / неактивная кнопка submit
+
+  inactiveButton = () => {
+    this._buttonElement.classList.add(this._inactiveButtonClass);
+    this._buttonElement.setAttribute("disabled", "");
+  }
+
   _toggleButtonState = () => {
 
     if (this._hasInvalidInput()) {
-      this._buttonElement.classList.add(this._inactiveButtonClass);
-      this._buttonElement.setAttribute("disabled", "");
+      this.inactiveButton();
     } else {
       this._buttonElement.classList.remove(this._inactiveButtonClass);
       this._buttonElement.removeAttribute("disabled");
