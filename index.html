@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,30 +9,31 @@
   <meta name="author" content="Liza Pleshakova">
   <link rel="stylesheet" href="pages/index.css">
 
-  <script type="module" src="./scripts/index.js" defer></script>
+  <script type="module" src="./pages/index.js" defer></script>
 
 </head>
+
 <body class="page">
   <header class="header">
-       <img src="./images/header__logo.svg" alt="Логотип Место." class="header__logo">
+    <img src="./images/header__logo.svg" alt="Логотип Место." class="header__logo">
   </header>
   <main class="content">
     <section class="profile">
 
-    <div class="profile__info">
-      <img src="./images/profile__selfie.jpg" alt="Прокудин-Горский. Фотограф" class="profile__image">
-      <div class="profile__bio">
-        <div class="profile__name-edit">
-          <h1 class="profile__name">Прокудин-Горский</h1>
-          <button type="button" aria-label="Редактировать профиль" class="profile__edit-btn button"></button>
+      <div class="profile__info">
+        <img src="./images/profile__selfie.jpg" alt="Прокудин-Горский. Фотограф" class="profile__image">
+        <div class="profile__bio">
+          <div class="profile__name-edit">
+            <h1 class="profile__name">Прокудин-Горский</h1>
+            <button type="button" aria-label="Редактировать профиль" class="profile__edit-btn button"></button>
+          </div>
+          <p class="profile__description">Фотограф</p>
         </div>
-        <p class="profile__description">Фотограф</p>
       </div>
-    </div>
-    <button type="button" aria-label="Добавить изображение" class="profile__add-btn button"></button>
+      <button type="button" aria-label="Добавить изображение" class="profile__add-btn button"></button>
     </section>
     <section class="elements">
-  </section>
+    </section>
   </main>
   <footer class="footer">
     <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
@@ -42,11 +44,14 @@
       <button type="button" aria-label="Закрыть модальное окно" class="button popup__close-btn"></button>
       <h2 class="popup__title">Редактировать профиль</h2>
       <form name="profile_edit" method="post" class="popup__input-container" novalidate>
-        <input type="text" name="username" id="name-input" class="popup__input popup__input_form_usermane" minlength="2" maxlength="40" required>
+        <input type="text" name="username" id="name-input" class="popup__input popup__input_form_usermane" minlength="2"
+          maxlength="40" required>
         <span class="popup__input-error name-input-error"></span>
-        <input type="text" name="description" id="description-input" class="popup__input popup__input_form_description" minlength="2" maxlength="200" required>
+        <input type="text" name="description" id="description-input" class="popup__input popup__input_form_description"
+          minlength="2" maxlength="200" required>
         <span class="popup__input-error description-input-error"></span>
-        <button type="submit" aria-label="Сохранить изменения и закрыть" class="button popup__submit-btn">Сохранить</button>
+        <button type="submit" aria-label="Сохранить изменения и закрыть"
+          class="button popup__submit-btn">Сохранить</button>
       </form>
     </div>
   </div>
@@ -56,22 +61,25 @@
       <button type="button" aria-label="Закрыть модальное окно" class="button popup__close-btn"></button>
       <h2 class="popup__title">Новое место</h2>
       <form name="image_add" method="post" class="popup__input-container" novalidate>
-        <input type="text" placeholder="Название" name="img_name" id="img-name-input" class="popup__input popup__input_form_image-title" minlength="2" maxlength="30" required>
+        <input type="text" placeholder="Название" name="img_name" id="img-name-input"
+          class="popup__input popup__input_form_image-title" minlength="2" maxlength="30" required>
         <span class="popup__input-error img-name-input-error"></span>
-        <input type="url" placeholder="Ссылка на картинку" name="img_url" id="img-url-input" class="popup__input popup__input_form_url" required>
+        <input type="url" placeholder="Ссылка на картинку" name="img_url" id="img-url-input"
+          class="popup__input popup__input_form_url" required>
         <span class="popup__input-error img-url-input-error"></span>
-        <button type="submit" aria-label="Сохранить изменения и закрыть" class="button popup__submit-btn">Создать</button>
+        <button type="submit" aria-label="Сохранить изменения и закрыть"
+          class="button popup__submit-btn">Создать</button>
       </form>
     </div>
-    </div>
+  </div>
   <div class="popup popup_zoom-content">
-      <div class="popup__image-container">
-        <button type="button" aria-label="Закрыть модальное окно" class="button popup__close-btn"></button>
-        <figure class="popup__figure">
-          <img class="popup__zoom-image" src="#" alt="">
-          <figcaption class = "popup__image-caption"></figcaption>
-        </figure>
-      </div>
+    <div class="popup__image-container">
+      <button type="button" aria-label="Закрыть модальное окно" class="button popup__close-btn"></button>
+      <figure class="popup__figure">
+        <img class="popup__zoom-image" src="#" alt="">
+        <figcaption class="popup__image-caption"></figcaption>
+      </figure>
+    </div>
   </div>
   <template id="card-template">
     <article class="card">
@@ -83,6 +91,5 @@
       <button type="button" aria-label="Удалить" class="card__delete button"></button>
     </article>
   </template>
-
-  </body>
+</body>
 </html>

@@ -1,4 +1,13 @@
 
+// Селекторы
+export const containerSelector = '.elements';
+export const popupZoomImageSelector = '.popup_zoom-content';
+export const popupAddCardSelector = '.popup_add-content';
+export const popupProfileSelector = '.popup_edit-profile';
+export const nameSelector = '.profile__name';
+export const aboutSelector = '.profile__description';
+
+
 // popups
 export const popups = document.querySelectorAll('.popup')
 const popupElement = document.querySelector('.popup');

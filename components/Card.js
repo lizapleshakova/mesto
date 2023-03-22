@@ -1,23 +1,26 @@
-import { zoomImage, zoomCaption, popupZoomImage } from './constans.js'
-import { openPopup } from './index.js';
-
 export default class Card {
-  constructor(data, templateSelector) {
+  constructor(data, templateSelector, handleCardClick) {
     this._name = data.name;
     this._link = data.link;
     this._templateSelector = templateSelector;
+    this._clickImageHandler = handleCardClick;
   }
 
   // создание шаблона
+
   _getTemplate() {
     const cardElement = document
       .querySelector(this._templateSelector)
       .content.querySelector('.card')
       .cloneNode(true);
     return cardElement;
+
   }
+
   generateCard() {
+
     this._element = this._getTemplate();
+
 
     this._elementImage = this._element.querySelector('.card__image');
     this._elementTitle = this._element.querySelector('.card__title');
@@ -33,14 +36,11 @@ export default class Card {
     return this._element;
   }
 
-  _handleOpenPopup() {
-    zoomImage.src = this._link;
-    zoomCaption.textContent = this._name;
-    zoomImage.alt = this._name;
-    openPopup(popupZoomImage);
+  _handleImageClick() {
+    this._clickImageHandler({ name: this._name, link: this._link })
   }
 
-    // лайки
+  // лайки
   _toggleLikeCard() {
     this._elementLike.classList.toggle('card__like_active');
   }
@@ -51,14 +51,15 @@ export default class Card {
     this._element = null;
   }
 
+
   // слушатели
+
   _setEventListeners() {
-
     this._elementImage.addEventListener('click', () => {
-      this._handleOpenPopup();
-  });
+      this._handleImageClick();
+    });
 
-  this._elementLike.addEventListener('click', () => {
+    this._elementLike.addEventListener('click', () => {
       this._toggleLikeCard();
     })
 
@@ -67,4 +68,6 @@ export default class Card {
     })
   }
 }
+
+
 
