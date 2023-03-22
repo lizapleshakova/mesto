@@ -7,21 +7,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mesto</title>
   <meta name="author" content="Liza Pleshakova">
-  <link rel="stylesheet" href="pages/index.css">
 
-  <script type="module" src="./pages/index.js" defer></script>
 
 </head>
 
 <body class="page">
   <header class="header">
-    <img src="./images/header__logo.svg" alt="Логотип Место." class="header__logo">
+    <img src= "<%=require('./images/header__logo.svg')%>" alt="Логотип Место." class="header__logo">
   </header>
   <main class="content">
     <section class="profile">
 
       <div class="profile__info">
-        <img src="./images/profile__selfie.jpg" alt="Прокудин-Горский. Фотограф" class="profile__image">
+        <img src="<%=require('./images/profile__selfie.jpg')%>" alt="Прокудин-Горский. Фотограф" class="profile__image">
         <div class="profile__bio">
           <div class="profile__name-edit">
             <h1 class="profile__name">Прокудин-Горский</h1>
