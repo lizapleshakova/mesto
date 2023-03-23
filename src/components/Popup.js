@@ -25,10 +25,10 @@ export default class Popup {
   // добавляет слушатель клика кнопке закрытия попапа. Модальное окно также закрывается при клике на затемнённую область вокруг формы.
   setEventListeners() {
     this._popup.addEventListener('mousedown', (evt) => {
-      if (evt.target.classList.contains('popup_opened')) {
-        this.close();
-      }
-      if (evt.target.classList.contains('popup__close-btn')) {
+      if (
+        evt.target.classList.contains('popup_opened') ||
+        evt.target.classList.contains('popup__close-btn'))
+        {
         this.close();
       }
     });

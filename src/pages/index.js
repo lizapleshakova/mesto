@@ -72,14 +72,14 @@ cardSection.renderItems();
 
 //открытие попапа добавления новой картинки
 function handleAddButtonClick() {
-  validationAddImage.enableValidation();
+  validationAddImage.inactiveButton();
   popupAddCard.open();
 }
 
 // открытие попапа редактирования профиля
 function handleEditButtonClick() {
   popupProfile.setInputValues(userInfo.getUserInfo());
-  validationProfile.enableValidation();
+  validationProfile.inactiveButton();
   popupProfile.open();
 }
 

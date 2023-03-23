@@ -68,6 +68,3 @@ export default class Card {
     })
   }
 }
-
-
-
