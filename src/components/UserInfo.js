@@ -1,21 +1,28 @@
 //import Popup from "./Popup.js";
 
 export default class UserInfo {
-  constructor({ nameSelector, aboutSelector }) {
 
+  constructor({ nameSelector, aboutSelector, avatarSelector }) {
     this._name = document.querySelector(nameSelector);
     this._about = document.querySelector(aboutSelector);
+    this._avatar = avatarSelector;
   }
 
   getUserInfo() {
     return {
-      username: this._name.textContent,
-      description: this._about.textContent,
+      name: this._name.textContent,
+      about: this._about.textContent,
+      avatar: this._avatar.src,
     }
   }
-  setUserInfo({ username, description }) {
 
-    this._name.textContent = username;
-    this._about.textContent = description;
+  setUserInfo({ name, about }) {
+    this._name.textContent = name;
+    this._about.textContent = about;
+  }
+
+    setAvatar({avatar}) {
+    this.avatarSelector.src = avatar;
   }
 }
+

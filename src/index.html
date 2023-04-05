@@ -13,13 +13,17 @@
 
 <body class="page">
   <header class="header">
-    <img src= "<%=require('./images/header__logo.svg')%>" alt="Логотип Место." class="header__logo">
+    <img src="<%=require('./images/header__logo.svg')%>" alt="Логотип Место." class="header__logo">
   </header>
   <main class="content">
     <section class="profile">
 
       <div class="profile__info">
-        <img src="<%=require('./images/profile__selfie.jpg')%>" alt="Прокудин-Горский. Фотограф" class="profile__image">
+        <div class="profile__avatar-container">
+          <img src="<%=require('./images/profile__selfie.jpg')%>" alt="Прокудин-Горский. Фотограф"
+            class="profile__image">
+
+        </div>
         <div class="profile__bio">
           <div class="profile__name-edit">
             <h1 class="profile__name">Прокудин-Горский</h1>
@@ -42,10 +46,10 @@
       <button type="button" aria-label="Закрыть модальное окно" class="button popup__close-btn"></button>
       <h2 class="popup__title">Редактировать профиль</h2>
       <form name="profile_edit" method="post" class="popup__input-container" novalidate>
-        <input type="text" name="username" id="name-input" class="popup__input popup__input_form_usermane" minlength="2"
+        <input type="text" name="name" id="name-input" class="popup__input popup__input_form_usermane" minlength="2"
           maxlength="40" required>
         <span class="popup__input-error name-input-error"></span>
-        <input type="text" name="description" id="description-input" class="popup__input popup__input_form_description"
+        <input type="text" name="about" id="description-input" class="popup__input popup__input_form_description"
           minlength="2" maxlength="200" required>
         <span class="popup__input-error description-input-error"></span>
         <button type="submit" aria-label="Сохранить изменения и закрыть"
@@ -79,15 +83,45 @@
       </figure>
     </div>
   </div>
+
+  <div class="popup popup_edit-avatar">
+    <div class="popup__container popup__container_edit-avatar">
+      <button type="button" aria-label="Закрыть модальное окно" class="button popup__close-btn"></button>
+      <h2 class="popup__title">Обновить аватар</h2>
+      <form name="avatar_edit" method="post" class="popup__input-container" novalidate>
+        <input type="url" placeholder="Ссылка на картинку" name="avatar" id="avatar-url-input"
+          class="popup__input popup__input_form_url" required>
+        <span class="popup__input-error avatar-url-input-error"></span>
+        <button type="submit" aria-label="Сохранить изменения и закрыть"
+          class="button popup__submit-btn">Сохранить</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="popup popup_delete-img">
+    <div class="popup__container popup__container_delete-img">
+      <button type="button" aria-label="Закрыть модальное окно" class="button popup__close-btn"></button>
+      <h2 class="popup__title">Вы уверены?</h2>
+      <form name="delete_img" method="post" class="popup__input-container" novalidate>
+        <button type="submit" aria-label="Сохранить изменения и закрыть" class="button popup__submit-btn">Да</button>
+      </form>
+    </div>
+  </div>
+
   <template id="card-template">
     <article class="card">
       <img src="#" alt=" " class="card__image">
       <div class="card__container">
         <h2 class="card__title"></h2>
-        <button type="button" aria-label="Нравится" class="card__like button"></button>
+        <div class="card__like-container">
+          <button type="button" aria-label="Нравится" class="card__like button"></button>
+          <p class="card__like-counter">1</p>
+        </div>
+
       </div>
       <button type="button" aria-label="Удалить" class="card__delete button"></button>
     </article>
   </template>
 </body>
+
 </html>
