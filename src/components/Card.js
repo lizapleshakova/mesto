@@ -2,6 +2,8 @@ export default class Card {
   constructor(data, templateSelector, handleCardClick) {
     this._name = data.name;
     this._link = data.link;
+    // this._ownerId = data.owner._id;
+    // this._userId = userId;
     this._templateSelector = templateSelector;
     this._clickImageHandler = handleCardClick;
   }
@@ -52,6 +54,12 @@ export default class Card {
   }
 
 
+  // _hasTrash() {
+  //   if (this._userId !== this._ownerId) {
+  //     this._elementDelete.remove();
+  //   }
+  // }
+
   // слушатели
 
   _setEventListeners() {
@@ -68,3 +76,4 @@ export default class Card {
     })
   }
 }
+

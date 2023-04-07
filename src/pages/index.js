@@ -11,7 +11,7 @@ import Api from '../components/Api.js';
 import {
   formInputCard, popupProfileOpen, popupAddImageOpen, formInputProfile, containerSelector,
   popupZoomImageSelector, popupAddCardSelector, popupProfileSelector, nameSelector, aboutSelector, avatarSelector, avatarContainer, popupEditAvatarSelector,
-  popupAvatar, popupEditAvatarOpen, formInputAvatar, urlInputAvatar
+  popupEditAvatarOpen, formInputAvatar, urlInputAvatar, popupAddImage
 } from '../untils/constans.js';
 
 // API
@@ -21,13 +21,14 @@ const api = new Api({
     authorization: 'c4212045-3513-440b-9652-62d1db009ae6',
     'Content-Type': 'application/json',
   },
-  });
+});
 
-  const getServerData = [api.getUserInfo(), api.getCards()];
+const getServerData = [api.getUserInfo(), api.getCards()];
 
-  Promise.all(getServerData)
+Promise.all(getServerData)
   .then(([userData, cards]) => {
     userInfo.setUserInfo(userData);
+    userInfo.setAvatar(userData);
     cardSection.renderItems(cards);
   })
   .catch((err) => console.log(`Ошибка получения данных: ${err}`));
@@ -38,18 +39,28 @@ function createCard(item) {
     item,
     '#card-template',
     clickImageHandler).generateCard();
-    return cardElement;
-  }
+  return cardElement;
+}
 
 // вставка карточек на страницу
-const cardSection = new Section({renderer: createCard}, containerSelector);
+const cardSection = new Section({ renderer: createCard }, containerSelector);
 
 
 // Попап редактирования профиля
-const userInfo = new UserInfo({nameSelector, aboutSelector, avatarSelector });
-const handleSubmitPopupProfile = ({name, about, avatar}) => {
-userInfo.setUserInfo({name, about, avatar});
+const userInfo = new UserInfo({ nameSelector, aboutSelector, avatarSelector });
+
+
+// ************************//
+const handleSubmitPopupProfile = ({ name, about }) => {
+  api.setProfile({ name, about })
+    .then((res) => {
+      userInfo.setUserInfo(res);
+      popupProfile.close();
+    })
+    .catch((err) => console.log(`Ошибка получения данных: ${err}`));
 }
+
+
 
 const popupProfile = new PopupWithForm(popupProfileSelector, handleSubmitPopupProfile)
 popupProfile.setEventListeners();
@@ -59,9 +70,20 @@ const popupWithImage = new PopupWithImage(popupZoomImageSelector);
 popupWithImage.setEventListeners();
 
 // попап добавления карточки
-const handleSubmitAddCard = ({ img_name, img_url }) => {
-  cardSection.addItem(createCard({name: img_name, link: img_url}));
-  }
+//******************************************* */
+// const handleSubmitAddCard = ({ img_name, img_url }) => {
+//   cardSection.addItem(createCard({ name: img_name, link: img_url }));
+// }
+//************************************************ */
+ const handleSubmitAddCard = (data) => {
+  api.setCard({name: data.img_name, link: data.img_url })
+  .then((card) => {
+    cardSection.addItem(createCard(card));
+    popupAddCard.close();
+  })
+  .catch((err) => console.log(`Ошибка получения данных: ${err}`));
+ }
+
 
 const popupAddCard = new PopupWithForm(popupAddCardSelector, handleSubmitAddCard);
 popupAddCard.setEventListeners();
@@ -69,13 +91,30 @@ popupAddCard.setEventListeners();
 // открытие попапа с картинкой
 
 const clickImageHandler = (data) => {
-    popupWithImage.open(data);
+  popupWithImage.open(data);
 }
 
 // попап изменения аватара
-const handleSubmitEditPopap = ({ img_url }) => {
-  cardSection.addItem(createCard({name: img_name, link: img_url}));
-  }
+
+const handleEditAvatar = (data) => {
+  api.setAvatar(data)
+    .then((res) => {
+      userInfo.setAvatar(res);
+      popupAvatar.close();
+    })
+    .catch((err) => console.log(`Ошибка получения данных: ${err}`));
+}
+
+const popupAvatar = new PopupWithForm(popupEditAvatarSelector, handleEditAvatar);
+popupAvatar.setEventListeners();
+
+//открытие попапа изменения аватара
+function handleEditAvatarClick() {
+  validationEditAvatar.enableValidation();
+  popupAvatar.open();
+}
+
+
 
 //открытие попапа добавления новой картинки
 function handleAddButtonClick() {
@@ -90,11 +129,9 @@ function handleEditButtonClick() {
   popupProfile.open();
 }
 
-//открытие попапа изменения аватара
-function handleEditAvatarClick() {
-  validationEditAvatar.enableValidation();
-  popupAvatar.open();
-}
+
+
+
 
 // слушатели на кнопку открытия попапов с картинкой и редактирования профиля
 popupAddImageOpen.addEventListener('click', handleAddButtonClick);
@@ -106,7 +143,7 @@ popupEditAvatarOpen.addEventListener('click', handleEditAvatarClick);
 // формы валидации
 const validationProfile = new FormValidator(configObj, formInputProfile)
 const validationAddImage = new FormValidator(configObj, formInputCard)
-const validationEditAvatar= new FormValidator(configObj, formInputAvatar)
+const validationEditAvatar = new FormValidator(configObj, formInputAvatar)
 
 // валидация
 validationProfile.enableValidation();

@@ -40,14 +40,41 @@ export default class Api {
   }
 
 // передача аватарки
-  setAvatar (avatar) {
+  setAvatar (data) {
     return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: 'PATCH',
       headers: this._headers,
-      body: JSON.stringify({ avatar })
+      body: JSON.stringify({ avatar: data.avatar })
     })
       .then(this._handleResponse);
   }
 
 
+// передача карточки на сервер
+  setCard({ name, link }) {
+    return fetch(`${this._baseUrl}/cards`, {
+      method: "POST",
+      headers: this._headers,
+      body: JSON.stringify({
+        name,
+        link,
+      }),
+    })
+    .then(this._handleResponse);
+  }
+
+
+  putLike(_id) {
+  return fetch(`${this._url}cards/${_id}/likes`, {
+    method: "PUT",
+    headers: this._headers,
+  }).then(this._checkResponse);
+}
+
+  deleteCards(_id) {
+    return fetch(`${this._url}cards/${_id}`, {
+      method: "DELETE",
+      headers: this._headers,
+    }).then(this._checkResponse);
+  }
 }
