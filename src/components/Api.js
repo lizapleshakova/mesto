@@ -49,7 +49,6 @@ export default class Api {
       .then(this._handleResponse);
   }
 
-
   // передача карточки на сервер
   setCard({ name, link }) {
     return fetch(`${this._baseUrl}/cards`, {
@@ -64,16 +63,18 @@ export default class Api {
   }
 
   addLike(_id) {
-    return fetch(`${this._url}cards/${_id}/likes`, {
+    return fetch(`${this._baseUrl}/cards/${_id}/likes`, {
       method: "PUT",
       headers: this._headers,
-    }).then(this._checkResponse);
+    })
+    .then(this._handleResponse);
   }
 
   removeLike(_id) {
-    return fetch(`${this._url}cards/${_id}/likes`, {
+    return fetch(`${this._baseUrl}/cards/${_id}/likes`, {
       method: "DELETE",
       headers: this._headers,
-    }).then(this._checkResponse);
+    })
+    .then(this._handleResponse);
   }
 }

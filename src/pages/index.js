@@ -48,7 +48,9 @@ function createCard(item) {
         api
           .addLike(_id)
           .then((data) => {
+
             cardElement.toggleLikeCard(data);
+
           })
           .catch((err) => console.log(`Ошибка получения данных: ${err}`));
       },

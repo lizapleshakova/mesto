@@ -5,7 +5,7 @@ export default class Card {
     this._link = data.link;
     this._ownerId = data.owner._id;
     this._userId = userId;
-    this._id = data._id;
+    this._id = data._id; // идентификатор карточек
     this._likes = data.likes;
     this._templateSelector = templateSelector;
     this._clickImageHandler = handleCardClick;
