@@ -75,6 +75,7 @@ export default class Api {
     return fetch(`${this._url}cards/${_id}`, {
       method: "DELETE",
       headers: this._headers,
-    }).then(this._checkResponse);
+    })
+    .then(this._handleResponse);
   }
 }

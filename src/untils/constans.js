@@ -17,6 +17,7 @@ export const popupProfile = document.querySelector('.popup_edit-profile');
 export const popupAddImage = document.querySelector('.popup_add-content');
 export const popupZoomImage = document.querySelector('.popup_zoom-content');
 export const popupAvatar = document.querySelector('.popup_edit-avatar');
+export const cardsTemplate = "#card-template";
 
 
 // контейнер для карточек

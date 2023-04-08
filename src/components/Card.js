@@ -1,9 +1,9 @@
 export default class Card {
-  constructor(data, templateSelector, handleCardClick) {
+  constructor(data, userId, templateSelector, handleCardClick) {
     this._name = data.name;
     this._link = data.link;
-    // this._ownerId = data.owner._id;
-    // this._userId = userId;
+    this._ownerId = data.owner._id;
+    this._userId = userId;
     this._templateSelector = templateSelector;
     this._clickImageHandler = handleCardClick;
   }
@@ -23,7 +23,6 @@ export default class Card {
 
     this._element = this._getTemplate();
 
-
     this._elementImage = this._element.querySelector('.card__image');
     this._elementTitle = this._element.querySelector('.card__title');
     this._elementLike = this._element.querySelector('.card__like');
@@ -32,6 +31,8 @@ export default class Card {
     this._elementTitle.textContent = this._name;
     this._elementImage.src = this._link;
     this._elementImage.alt = this._name;
+
+    this._checkUserId();
 
     this._setEventListeners();
 
@@ -54,11 +55,12 @@ export default class Card {
   }
 
 
-  // _hasTrash() {
-  //   if (this._userId !== this._ownerId) {
-  //     this._elementDelete.remove();
-  //   }
-  // }
+  _checkUserId() {
+    if (this._userId !== this._ownerId) {
+      this._elementDelete.remove();
+    }
+  }
+
 
   // слушатели
 
@@ -76,4 +78,3 @@ export default class Card {
     })
   }
 }
-

@@ -11,7 +11,7 @@ import Api from '../components/Api.js';
 import {
   formInputCard, popupProfileOpen, popupAddImageOpen, formInputProfile, containerSelector,
   popupZoomImageSelector, popupAddCardSelector, popupProfileSelector, nameSelector, aboutSelector, avatarSelector, avatarContainer, popupEditAvatarSelector,
-  popupEditAvatarOpen, formInputAvatar, urlInputAvatar, popupAddImage
+  popupEditAvatarOpen, formInputAvatar, urlInputAvatar, popupAddImage, cardsTemplate
 } from '../untils/constans.js';
 
 // API
@@ -24,24 +24,48 @@ const api = new Api({
 });
 
 const getServerData = [api.getUserInfo(), api.getCards()];
+let userId;
 
 Promise.all(getServerData)
   .then(([userData, cards]) => {
+    userId = userData._id;
     userInfo.setUserInfo(userData);
     userInfo.setAvatar(userData);
     cardSection.renderItems(cards);
   })
   .catch((err) => console.log(`Ошибка получения данных: ${err}`));
 
+
+
 // создание новой карточки
 function createCard(item) {
   const cardElement = new Card(
     item,
-    '#card-template',
+    userId,
+    cardsTemplate,
     clickImageHandler).generateCard();
   return cardElement;
 }
 
+// открытие попапа с картинкой
+
+const clickImageHandler = (data) => {
+  popupWithImage.open(data);
+}
+
+
+// const createCard = (item) => {
+//   const card = new Card({
+//     data: item,
+//     templateSelector: cardsTemplate,
+//     handleCardClick: (name, link) => {
+//       popupWithImage.open(name, link);
+//     },
+
+//   });
+//   const cardElement = card.generateCard();
+//   return cardElement;
+// }
 // вставка карточек на страницу
 const cardSection = new Section({ renderer: createCard }, containerSelector);
 
@@ -88,11 +112,7 @@ popupWithImage.setEventListeners();
 const popupAddCard = new PopupWithForm(popupAddCardSelector, handleSubmitAddCard);
 popupAddCard.setEventListeners();
 
-// открытие попапа с картинкой
 
-const clickImageHandler = (data) => {
-  popupWithImage.open(data);
-}
 
 // попап изменения аватара
 
