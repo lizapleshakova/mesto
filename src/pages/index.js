@@ -36,15 +36,34 @@ Promise.all(getServerData)
   .catch((err) => console.log(`Ошибка получения данных: ${err}`));
 
 
-
 // создание новой карточки
 function createCard(item) {
   const cardElement = new Card(
     item,
     userId,
     cardsTemplate,
-    clickImageHandler).generateCard();
-  return cardElement;
+    clickImageHandler,
+    {
+      handlePutLike: (_id) => {
+        api
+          .addLike(_id)
+          .then((data) => {
+            cardElement.toggleLikeCard(data);
+          })
+          .catch((err) => console.log(`Ошибка получения данных: ${err}`));
+      },
+      handleDeleteLike: (_id) => {
+        api
+          .removeLike(_id)
+          .then((data) => {
+            cardElement.toggleLikeCard(data);
+          })
+          .catch((err) => console.log(`Ошибка получения данных: ${err}`));
+      },
+    }
+  );
+  const generatedCard = cardElement.generateCard();
+  return generatedCard;
 }
 
 // открытие попапа с картинкой
@@ -54,18 +73,6 @@ const clickImageHandler = (data) => {
 }
 
 
-// const createCard = (item) => {
-//   const card = new Card({
-//     data: item,
-//     templateSelector: cardsTemplate,
-//     handleCardClick: (name, link) => {
-//       popupWithImage.open(name, link);
-//     },
-
-//   });
-//   const cardElement = card.generateCard();
-//   return cardElement;
-// }
 // вставка карточек на страницу
 const cardSection = new Section({ renderer: createCard }, containerSelector);
 
@@ -85,7 +92,6 @@ const handleSubmitPopupProfile = ({ name, about }) => {
 }
 
 
-
 const popupProfile = new PopupWithForm(popupProfileSelector, handleSubmitPopupProfile)
 popupProfile.setEventListeners();
 
@@ -94,19 +100,15 @@ const popupWithImage = new PopupWithImage(popupZoomImageSelector);
 popupWithImage.setEventListeners();
 
 // попап добавления карточки
-//******************************************* */
-// const handleSubmitAddCard = ({ img_name, img_url }) => {
-//   cardSection.addItem(createCard({ name: img_name, link: img_url }));
-// }
-//************************************************ */
- const handleSubmitAddCard = (data) => {
-  api.setCard({name: data.img_name, link: data.img_url })
-  .then((card) => {
-    cardSection.addItem(createCard(card));
-    popupAddCard.close();
-  })
-  .catch((err) => console.log(`Ошибка получения данных: ${err}`));
- }
+
+const handleSubmitAddCard = (data) => {
+  api.setCard({ name: data.img_name, link: data.img_url })
+    .then((card) => {
+      cardSection.addItem(createCard(card));
+      popupAddCard.close();
+    })
+    .catch((err) => console.log(`Ошибка получения данных: ${err}`));
+}
 
 
 const popupAddCard = new PopupWithForm(popupAddCardSelector, handleSubmitAddCard);
@@ -151,8 +153,6 @@ function handleEditButtonClick() {
 
 
 
-
-
 // слушатели на кнопку открытия попапов с картинкой и редактирования профиля
 popupAddImageOpen.addEventListener('click', handleAddButtonClick);
 popupProfileOpen.addEventListener('click', handleEditButtonClick);
@@ -169,3 +169,4 @@ const validationEditAvatar = new FormValidator(configObj, formInputAvatar)
 validationProfile.enableValidation();
 validationAddImage.enableValidation();
 validationEditAvatar.enableValidation();
+

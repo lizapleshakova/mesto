@@ -25,22 +25,22 @@ export default class Api {
   getCards() {
     return fetch(`${this._baseUrl}/cards`, {
       headers: this._headers,
-     })
-      .then(this._handleResponse);
-  }
-
-  // передача информации о пользователе
-  setProfile ({name, about}) {
-    return fetch(`${this._baseUrl}/users/me`, {
-      method: 'PATCH',
-      headers: this._headers,
-      body: JSON.stringify({ name, about  })
     })
       .then(this._handleResponse);
   }
 
-// передача аватарки
-  setAvatar (data) {
+  // передача информации о пользователе
+  setProfile({ name, about }) {
+    return fetch(`${this._baseUrl}/users/me`, {
+      method: 'PATCH',
+      headers: this._headers,
+      body: JSON.stringify({ name, about })
+    })
+      .then(this._handleResponse);
+  }
+
+  // передача аватарки
+  setAvatar(data) {
     return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: 'PATCH',
       headers: this._headers,
@@ -50,7 +50,7 @@ export default class Api {
   }
 
 
-// передача карточки на сервер
+  // передача карточки на сервер
   setCard({ name, link }) {
     return fetch(`${this._baseUrl}/cards`, {
       method: "POST",
@@ -60,22 +60,20 @@ export default class Api {
         link,
       }),
     })
-    .then(this._handleResponse);
+      .then(this._handleResponse);
   }
 
+  addLike(_id) {
+    return fetch(`${this._url}cards/${_id}/likes`, {
+      method: "PUT",
+      headers: this._headers,
+    }).then(this._checkResponse);
+  }
 
-  putLike(_id) {
-  return fetch(`${this._url}cards/${_id}/likes`, {
-    method: "PUT",
-    headers: this._headers,
-  }).then(this._checkResponse);
-}
-
-  deleteCards(_id) {
-    return fetch(`${this._url}cards/${_id}`, {
+  removeLike(_id) {
+    return fetch(`${this._url}cards/${_id}/likes`, {
       method: "DELETE",
       headers: this._headers,
-    })
-    .then(this._handleResponse);
+    }).then(this._checkResponse);
   }
 }
