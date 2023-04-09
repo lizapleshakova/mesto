@@ -15,15 +15,24 @@ export default class PopupWithConfirmation extends Popup {
 
   setEventListeners() {
     super.setEventListeners();
-    this._button.addEventListener("submit", (evt) => {
+    this._form.addEventListener("submit", (evt) => {
       evt.preventDefault();
-      this._handleSubmit({_id: this._id});
+      this._handleSubmit({ id: this._id, cards: this._cards });
     });
-
   }
 
-  open({_id}) {
+  open(id, cards) {
     super.open();
-    this._id = _id;
+    this._id = id;
+    this._cards = cards;
+  }
+
+  renderLoading(isLoading) {
+    if (isLoading) {
+      this._button.textContent = "Да"
+    }
+    else{
+      this._button.textContent = "..."
+    }
   }
 }

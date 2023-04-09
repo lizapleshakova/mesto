@@ -13,15 +13,6 @@ export default class Api {
     }
   };
 
-// удалить карточку
-removeCard(_id) {
-  return fetch(`${this._baseUrl}/cards/${_id}`, {
-    method: "DELETE",
-    headers: this._headers,
-  })
-  .then(this._handleResponse);
-}
-
   // получение информация о пользователе
   getUserInfo() {
     return fetch(`${this._baseUrl}/users/me`, {
@@ -63,10 +54,7 @@ removeCard(_id) {
     return fetch(`${this._baseUrl}/cards`, {
       method: "POST",
       headers: this._headers,
-      body: JSON.stringify({
-        name,
-        link,
-      }),
+      body: JSON.stringify({ name, link }),
     })
       .then(this._handleResponse);
   }
@@ -77,14 +65,24 @@ removeCard(_id) {
       method: "PUT",
       headers: this._headers,
     })
-    .then(this._handleResponse);
+      .then(this._handleResponse);
   }
-// Удалить лайк
-removeLike(_id) {
-  return fetch(`${this._baseUrl}/cards/${_id}/likes`, {
-    method: "DELETE",
-    headers: this._headers,
-  })
-  .then(this._handleResponse);
-}
+  // Удалить лайк
+  removeLike(_id) {
+    return fetch(`${this._baseUrl}/cards/${_id}/likes`, {
+      method: "DELETE",
+      headers: this._headers,
+    })
+      .then(this._handleResponse);
+  }
+
+  // Удалить карточку
+  removeCard(_id) {
+
+    return fetch(`${this._baseUrl}/cards/${_id}`, {
+      method: "DELETE",
+      headers: this._headers,
+    })
+      .then(this._handleResponse);
+  }
 }
