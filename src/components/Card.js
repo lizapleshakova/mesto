@@ -1,6 +1,6 @@
 export default class Card {
   constructor(data, userId, templateSelector, handleCardClick, {handlePutLike,
-    handleDeleteLike},) {
+    handleDeleteLike, handleCardDelete},) {
     this._name = data.name;
     this._link = data.link;
     this._ownerId = data.owner._id;
@@ -11,6 +11,7 @@ export default class Card {
     this._clickImageHandler = handleCardClick;
     this._handlePutLike = handlePutLike;
     this._handleDeleteLike = handleDeleteLike;
+    this._handleCardDelete = handleCardDelete;
   }
 
   // создание шаблона
@@ -21,7 +22,6 @@ export default class Card {
       .content.querySelector('.card')
       .cloneNode(true);
     return cardElement;
-
   }
 
   generateCard() {
@@ -41,6 +41,7 @@ export default class Card {
 
     this._checkUserId();
     this._isLiked();
+
     this._setEventListeners();
 
     return this._element;
@@ -48,12 +49,6 @@ export default class Card {
 
   _handleImageClick() {
     this._clickImageHandler({ name: this._name, link: this._link })
-  }
-
-  _hasTrash() {
-    if (this._userId !== this._ownerId) {
-      this._trash.remove();
-    }
   }
 
   _switchLikes() {
@@ -81,9 +76,9 @@ export default class Card {
   }
 
   // корзина
-  _deleteCard() {
+  deleteCard() {
     this._element.remove();
-    this._element = null;
+    // this._element = null;
   }
 
   _checkUserId() {
@@ -102,11 +97,12 @@ export default class Card {
 
     this._elementLike.addEventListener('click', () => {
       this._switchLikes();
-    })
+    });
 
     this._elementDelete.addEventListener('click', () => {
-      this._deleteCard();
+      this._handleCardDelete({_id: this._id});
     })
+
   }
 }
 

@@ -3,15 +3,16 @@ import Card from '../components/Card.js';
 import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
+import PopupWithConfirmation from '../components/PopupWithConfirmation.js';
 import UserInfo from '../components/UserInfo.js';
-import { initialCards } from '../untils/cardArr.js';
+
 import { configObj } from '../untils/validationObj.js';
 import { FormValidator } from '../components/FormValidator.js';
 import Api from '../components/Api.js';
 import {
   formInputCard, popupProfileOpen, popupAddImageOpen, formInputProfile, containerSelector,
   popupZoomImageSelector, popupAddCardSelector, popupProfileSelector, nameSelector, aboutSelector, avatarSelector, avatarContainer, popupEditAvatarSelector,
-  popupEditAvatarOpen, formInputAvatar, urlInputAvatar, popupAddImage, cardsTemplate
+  popupEditAvatarOpen, formInputAvatar, urlInputAvatar, popupAddImage, cardsTemplate, popupConfirmationSelector
 } from '../untils/constans.js';
 
 // API
@@ -48,9 +49,7 @@ function createCard(item) {
         api
           .addLike(_id)
           .then((data) => {
-
             cardElement.toggleLikeCard(data);
-
           })
           .catch((err) => console.log(`Ошибка получения данных: ${err}`));
       },
@@ -61,6 +60,20 @@ function createCard(item) {
             cardElement.toggleLikeCard(data);
           })
           .catch((err) => console.log(`Ошибка получения данных: ${err}`));
+      },
+      handleCardDelete: (_id) => {
+        popupConfirmation.open(_id);
+
+        popupConfirmation.setSubmitHandler((_id) => {
+          api
+            .removeCard(_id)
+            .then((data) => {
+              popupConfirmation.close();
+              cardElement.deleteCard(data);
+            })
+            .catch((err) => console.log(`Ошибка получения данных: ${err}`));
+
+        });
       },
     }
   );
@@ -78,12 +91,15 @@ const clickImageHandler = (data) => {
 // вставка карточек на страницу
 const cardSection = new Section({ renderer: createCard }, containerSelector);
 
+// Попап с подтверждение удаления карточки
+
+const popupConfirmation = new PopupWithConfirmation(popupConfirmationSelector);
+popupConfirmation.setEventListeners();
+
 
 // Попап редактирования профиля
 const userInfo = new UserInfo({ nameSelector, aboutSelector, avatarSelector });
 
-
-// ************************//
 const handleSubmitPopupProfile = ({ name, about }) => {
   api.setProfile({ name, about })
     .then((res) => {
@@ -137,8 +153,6 @@ function handleEditAvatarClick() {
   validationEditAvatar.enableValidation();
   popupAvatar.open();
 }
-
-
 
 //открытие попапа добавления новой картинки
 function handleAddButtonClick() {

@@ -9,6 +9,7 @@ export const aboutSelector = '.profile__description';
 export const popupEditAvatarSelector = '.popup_edit-avatar';
 export const avatarSelector = '.profile__image';
 export const avatarContainer = '.profile__avatar-container';
+export const popupConfirmationSelector ='.popup_delete-img';
 
 // popups
 export const popups = document.querySelectorAll('.popup')

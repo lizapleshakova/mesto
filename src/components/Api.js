@@ -13,6 +13,15 @@ export default class Api {
     }
   };
 
+// удалить карточку
+removeCard(_id) {
+  return fetch(`${this._baseUrl}/cards/${_id}`, {
+    method: "DELETE",
+    headers: this._headers,
+  })
+  .then(this._handleResponse);
+}
+
   // получение информация о пользователе
   getUserInfo() {
     return fetch(`${this._baseUrl}/users/me`, {
@@ -62,6 +71,7 @@ export default class Api {
       .then(this._handleResponse);
   }
 
+  // Поставить лайк
   addLike(_id) {
     return fetch(`${this._baseUrl}/cards/${_id}/likes`, {
       method: "PUT",
@@ -69,12 +79,12 @@ export default class Api {
     })
     .then(this._handleResponse);
   }
-
-  removeLike(_id) {
-    return fetch(`${this._baseUrl}/cards/${_id}/likes`, {
-      method: "DELETE",
-      headers: this._headers,
-    })
-    .then(this._handleResponse);
-  }
+// Удалить лайк
+removeLike(_id) {
+  return fetch(`${this._baseUrl}/cards/${_id}/likes`, {
+    method: "DELETE",
+    headers: this._headers,
+  })
+  .then(this._handleResponse);
+}
 }
